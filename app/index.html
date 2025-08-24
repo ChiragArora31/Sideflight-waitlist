@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sideflight | Pre-Release</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #ffffff;
+      color: #1a2b5c;
+    }
+
+    header {
+      text-align: center;
+      padding: 3rem 1rem;
+      background: linear-gradient(135deg, #007bff, #1246ca);
+      color: white;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+    }
+
+    /* ✅ Improved responsive waitlist form */
+    .waitlist-form {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .waitlist-form input[type="email"] {
+      flex: 1 1 250px;
+      min-width: 220px;
+      padding: 0.8rem;
+      border-radius: 8px;
+      border: none;
+      font-size: 1rem;
+    }
+
+    .waitlist-form button {
+      flex: 0 0 auto;
+      padding: 0.8rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      background: #ff6b35;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.3s;
+      white-space: nowrap;
+    }
+
+    .waitlist-form button:hover {
+      background: #ff884d;
+    }
+
+    #form-message {
+      margin-top: 1rem;
+      font-size: 1rem;
+    }
+
+    #form-message.success {
+      color: #00ff9d;
+    }
+
+    #form-message.error {
+      color: #ff4d4d;
+    }
+
+    /* 📱 Mobile-specific adjustments */
+    @media (max-width: 600px) {
+      .waitlist-form {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .waitlist-form input[type="email"],
+      .waitlist-form button {
+        width: 100%;
+      }
+    }
+
+    .intro {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      padding: 3rem 2rem;
+      gap: 2rem;
+    }
+
+    .intro-text {
+      max-width: 500px;
+    }
+
+    .intro-text h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .intro-text p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    .intro img {
+      max-width: 250px;
+      border-radius: 12px;
+      box-shadow: 0px 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .cards {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 2rem;
+      padding: 3rem 2rem;
+      background: #f8fbff;
+    }
+
+    .card {
+      background: white;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      max-width: 300px;
+      text-align: center;
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card h3 {
+      margin-bottom: 1rem;
+      color: #073d77;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      background: #1a2b5c;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>✈️ Sideflight</h1>
+    <p>Turn your flight into a mentorship journey. Learn from experts while you fly.</p>
+    <form class="waitlist-form" id="waitlist-form">
+      <input type="email" id="email" placeholder="Enter your email" required>
+      <button type="submit">Join Waitlist</button>
+    </form>
+    <p id="form-message"></p>
+  </header>
+
+  <section class="intro">
+    <div class="intro-text">
+      <h2>Learn. Connect. Fly.</h2>
+      <p>
+        Imagine sitting next to a <b>Mutual Fund Manager</b> on your flight if you dream of
+        mastering investing. Or learning about startups from a <b>founder</b> cruising at 30,000 ft.  
+        With Sideflight, we match you with the right mentor for your journey.
+      </p>
+    </div>
+    <img src="sf.png" alt="Flight mentorship">
+  </section>
+
+  <section class="cards">
+    <div class="card">
+      <h3>🚀 Meet Experts</h3>
+      <p>From finance to coding, connect with mentors across industries who are happy to guide.</p>
+    </div>
+    <div class="card">
+      <h3>✈️ Flight Made Productive</h3>
+      <p>Turn idle hours into life-changing conversations. Learn while you fly.</p>
+    </div>
+    <div class="card">
+      <h3>🤝 Build Networks</h3>
+      <p>Land with not just miles, but meaningful connections for your career & passion.</p>
+    </div>
+  </section>
+
+  <section class="intro">
+    <img src="https://images.unsplash.com/photo-1501594907352-04cda38ebc29?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Mentorship in flight">
+    <div class="intro-text">
+      <h2>Why Sideflight?</h2>
+      <p>
+        Because the right conversation at the right time can change your career path.  
+        We bring <b>mentorship, networking, and inspiration</b> to your seat in the sky.  
+        Your next flight could shape your future.
+      </p>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 Sideflight. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const form = document.getElementById("waitlist-form");
+    const messageEl = document.getElementById("form-message");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = document.getElementById("email").value;
+      console.log(email)
+
+      messageEl.textContent = "Submitting...";
+      messageEl.className = "";
+
+      try {
+        const response = await fetch("https://sideflights-waitlist.vercel.app/api/subscribe", {
+        mode: 'no-cors',
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+});
+
+        const result = await response.json();
+
+        if (response.ok) {
+          messageEl.textContent = "🎉 Thanks for joining! Check your inbox for a welcome email.";
+          messageEl.className = "success";
+          form.reset();
+        } else {
+          messageEl.textContent = "⚠️ " + (result.message || "Something went wrong. Try again.");
+          messageEl.className = "error";
+        }
+      } catch (err) {
+        messageEl.textContent = "⚠️ Network error. Please try again later.";
+        messageEl.className = "error";
+      }
+    });
+  </script>
+</body>
+</html>
