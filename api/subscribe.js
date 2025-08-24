@@ -9,7 +9,7 @@ const app = express();
 
 // CORS middleware - MUST be first
 app.use(cors({
-  origin: true, // Allow all origins for now (you can restrict later)
+  origin: true, // You can restrict this in production for security
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
@@ -23,15 +23,15 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 app.get("/test-cors", (req, res) => {
   res.header("Access-Control-Allow-Origin", "*");
-  res.json({ 
-    message: "CORS test successful", 
+  res.json({
+    message: "CORS test successful",
     timestamp: new Date().toISOString(),
     cors: "enabled"
   });
 });
 
-// Subscribe route
-app.post("/api/subscribe", async (req, res) => {
+// Subscribe route - Changed path from "/api/subscribe" to "/"
+app.post("/", async (req, res) => {
   const { email } = req.body;
 
   if (!email) {
@@ -55,7 +55,7 @@ app.post("/api/subscribe", async (req, res) => {
       <hr>
       <p><strong>Let's stay connected!</strong> 🚀 Follow us for updates, sneak peeks, and launch news:</p>
       <p>
-      <a href="https://www.linkedin.com/package.json
+      <a href="https://www.linkedin.com/company/sideflightapp" target="_blank">LinkedIn</a> | 
       <a href="https://x.com/sideflightapp" target="_blank">X (Twitter)</a> | 
       <a href="https://www.instagram.com/sideflightapp" target="_blank">Instagram</a>
       </p>`,
@@ -69,10 +69,10 @@ app.post("/api/subscribe", async (req, res) => {
   }
 });
 
-// Export for Vercel (remove app.listen for production)
+// Export for Vercel
 export default app;
 
-// Only listen locally if not in production
+// This local server setup is fine for development and won't run in production on Vercel
 if (process.env.NODE_ENV !== 'production') {
   app.listen(3000, () => console.log("✅ Server running on http://localhost:3000"));
 }
