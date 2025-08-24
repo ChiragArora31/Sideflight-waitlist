@@ -224,12 +224,12 @@
       messageEl.className = "";
 
       try {
-        const response = await fetch("https://sideflights-waitlist.vercel.app/api/subscribe", {
-        mode: 'no-cors',
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
-});
+        // Use relative path - works both locally and on Vercel
+        const response = await fetch("/api/subscribe", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email }),
+        });
 
         const result = await response.json();
 

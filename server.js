@@ -1,22 +1,42 @@
+import express from "express";
 import { Resend } from "resend";
+import dotenv from "dotenv";
+import cors from "cors";
+
+dotenv.config();
+
+const app = express();
+
+// CORS middleware - MUST be first
+app.use(cors({
+  origin: true, // You can restrict this in production for security
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
+// Middleware
+app.use(express.json());
+app.use(express.static(".")); // Serve from root directory
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-export default async function handler(req, res) {
-  // Handle CORS preflight
-  if (req.method === 'OPTIONS') {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-    res.status(200).end();
-    return;
-  }
+// Serve the main page
+app.get("/", (req, res) => {
+  res.sendFile("index.html", { root: "." });
+});
 
-  // Only allow POST requests
-  if (req.method !== 'POST') {
-    return res.status(405).json({ message: 'Method not allowed' });
-  }
+app.get("/test-cors", (req, res) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.json({
+    message: "CORS test successful",
+    timestamp: new Date().toISOString(),
+    cors: "enabled"
+  });
+});
 
+// Subscribe route - API endpoint
+app.post("/api/subscribe", async (req, res) => {
   const { email } = req.body;
 
   if (!email) {
@@ -30,7 +50,7 @@ export default async function handler(req, res) {
       to: [email],
       subject: "Welcome to Sideflight – Your journey starts now! ✈️",
       html: `<h1>You're on board!</h1><p>Welcome to the Sideflight waitlist — we're thrilled to have you. 🎉</p>
-      <p>We're building a way to turn travel time into growth time by connecting learners with industry experts, even mid-flight. Mentorship, career guidance, or a spark of inspiration — it's all about to takeoff.</p>
+      <p>We're building a way to turn travel time into growth time by connecting learners with industry experts, even mid-flight. Mentorship, career guidance, or a spark of inspiration — it's all about to take off.</p>
       <p>As an early joiner, you'll get:</p>
       <p>✨ Early access before public launch<br>
       ✨ Priority booking for expert sessions<br>
@@ -52,4 +72,12 @@ export default async function handler(req, res) {
     console.error("Resend error:", error);
     res.status(500).json({ message: "Error sending email" });
   }
+});
+
+// Export for Vercel
+export default app;
+
+// This local server setup is fine for development and won't run in production on Vercel
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(3000, () => console.log("✅ Server running on http://localhost:3000"));
 }
